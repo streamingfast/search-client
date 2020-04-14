@@ -10,17 +10,17 @@ import (
 	"google.golang.org/grpc"
 )
 
-type commonClient struct {
+type CommonClient struct {
 	client pbsearch.RouterClient
 }
 
-func newCommonClient(cc *grpc.ClientConn) *commonClient {
-	return &commonClient{
+func NewCommonClient(cc *grpc.ClientConn) *CommonClient {
+	return &CommonClient{
 		client: pbsearch.NewRouterClient(cc),
 	}
 }
 
-func (c *commonClient) streamSearchToHammer(ctx context.Context, hammer *dhammer.Hammer, req *pbsearch.RouterRequest) {
+func (c *CommonClient) StreamSearchToHammer(ctx context.Context, hammer *dhammer.Hammer, req *pbsearch.RouterRequest) {
 	zlogger := logging.Logger(ctx, zlog)
 	searchCtx, cancelSearch := context.WithCancel(ctx)
 	defer func() {
@@ -79,7 +79,7 @@ func (c *commonClient) streamSearchToHammer(ctx context.Context, hammer *dhammer
 type onHammerItem func(interface{})
 type onHammerError func(error)
 
-func (c *commonClient) hammerToConsumer(ctx context.Context, hammer *dhammer.Hammer, onItem onHammerItem, onError onHammerError) {
+func (c *CommonClient) HammerToConsumer(ctx context.Context, hammer *dhammer.Hammer, onItem onHammerItem, onError onHammerError) {
 	zlogger := logging.Logger(ctx, zlog)
 
 	zlogger.Debug("starting dhammer loop")
@@ -121,7 +121,7 @@ func (c *commonClient) hammerToConsumer(ctx context.Context, hammer *dhammer.Ham
 	}
 }
 
-func gatherTransactionPrefixesToFetch(items []interface{}, needsFetch func(*pbsearch.SearchMatch) bool) (prefixes []string, prefixToIndex map[string]int) {
+func GatherTransactionPrefixesToFetch(items []interface{}, needsFetch func(*pbsearch.SearchMatch) bool) (prefixes []string, prefixToIndex map[string]int) {
 	prefixToIndex = map[string]int{}
 	for _, item := range items {
 		m := item.(*matchOrError)
