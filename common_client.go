@@ -1,12 +1,12 @@
-package search
+package searchclient
 
 import (
 	"context"
 	"io"
 
-	pbsearch "github.com/dfuse-io/pbgo/dfuse/search/v1"
 	"github.com/dfuse-io/dhammer"
 	"github.com/dfuse-io/logging"
+	pbsearch "github.com/dfuse-io/pbgo/dfuse/search/v1"
 	"google.golang.org/grpc"
 )
 

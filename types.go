@@ -1,4 +1,4 @@
-package search
+package searchclient
 
 import (
 	pbsearch "github.com/dfuse-io/pbgo/dfuse/search/v1"
