@@ -5,6 +5,6 @@ import (
 )
 
 type MatchOrError struct {
-	match *pbsearch.SearchMatch
-	err   error
+	Match *pbsearch.SearchMatch
+	Err   error
 }
