@@ -1,18 +1,43 @@
-### A higher-level client for dfuse Search micro-service
+# High-level client for dfuse Search
 
-The dfuse Search micro-service only deals with actual transaction matching
-and not the full blown data object representing a transaction and it's matching
-sub-elements (actions in EOSIO blockchain for example).
+Augmented, high-performance search client, that combines data from `kvdb` storage when
+archives provide only pointers.
 
-The actual data object is stored in a database through the `kvdb` project and
-its interface.
+## Scope
 
-We had the need in various projects to use the backing search micro-service
-while still resolving the full transaction data objects. Hence this project,
-instead of duplicating the logic (and performance optimizations) of this
-logic, this project has been created.
+The dfuse Search service's search results contain only pointers to
+matching transaction data (except in live, which it brings along to
+avoid races).
 
-Based on the standard gRPC search micro-service definition, this project
-contains higher level client that talks to the search micro-service
-and has the glue to actually retrieved the full transaction object from the
-`kvdb` source.
+The actual data object is stored in a database through
+https://github.com/dfuse-io/kvdb and its interface.
+
+Different services querying search directly can now benefit from the
+optimizations of this library to speed up access to search results'
+full data, by resolving pointers through `kvdb`.
+
+
+## Installation & Usage
+
+See the different protocol-specific `dfuse` binaries at https://github.com/dfuse-io/dfuse#protocols
+
+Current `search` implementations:
+
+* [**dfuse for EOSIO**](https://github.com/dfuse-io/dfuse-eosio)
+* **dfuse for Ethereum**, soon to be open sourced
+
+## Contributing
+
+**Issues and PR in this repo related strictly to the search client.**
+
+Report any protocol-specific issues in their
+[respective repositories](https://github.com/dfuse-io/dfuse#protocols)
+
+**Please first refer to the general
+[dfuse contribution guide](https://github.com/dfuse-io/dfuse#contributing)**,
+if you wish to contribute to this code base.
+
+
+## License
+
+[Apache 2.0](LICENSE)
