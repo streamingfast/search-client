@@ -32,7 +32,7 @@ func (c *CommonClient) StreamSearchToHammer(ctx context.Context, hammer *dhammer
 	zlogger.Debug("search stream performing actual search request")
 	stream, err := c.client.StreamMatches(searchCtx, req)
 	if err != nil {
-		hammer.In <- &matchOrError{err: err}
+		hammer.In <- &MatchOrError{err: err}
 		return
 	}
 
@@ -42,7 +42,7 @@ func (c *CommonClient) StreamSearchToHammer(ctx context.Context, hammer *dhammer
 
 		// Everything goes through dhammer, be it a match or an error, that way, the flow is linear
 		// and dhammer takes care of sending back the processed match or error.
-		batchItem := &matchOrError{
+		batchItem := &MatchOrError{
 			match: match,
 			err:   err,
 		}
@@ -124,7 +124,7 @@ func (c *CommonClient) HammerToConsumer(ctx context.Context, hammer *dhammer.Ham
 func GatherTransactionPrefixesToFetch(items []interface{}, needsFetch func(*pbsearch.SearchMatch) bool) (prefixes []string, prefixToIndex map[string]int) {
 	prefixToIndex = map[string]int{}
 	for _, item := range items {
-		m := item.(*matchOrError)
+		m := item.(*MatchOrError)
 
 		// The hammer batch contains an error at some point, we ignored anything after it
 		if m.err != nil {
