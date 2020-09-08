@@ -11,12 +11,12 @@ import (
 )
 
 type CommonClient struct {
-	client pbsearch.RouterClient
+	Client pbsearch.RouterClient
 }
 
 func NewCommonClient(cc *grpc.ClientConn) *CommonClient {
 	return &CommonClient{
-		client: pbsearch.NewRouterClient(cc),
+		Client: pbsearch.NewRouterClient(cc),
 	}
 }
 
@@ -30,7 +30,7 @@ func (c *CommonClient) StreamSearchToHammer(ctx context.Context, hammer *dhammer
 	}()
 
 	zlogger.Debug("search stream performing actual search request")
-	stream, err := c.client.StreamMatches(searchCtx, req)
+	stream, err := c.Client.StreamMatches(searchCtx, req)
 	if err != nil {
 		hammer.In <- &MatchOrError{Err: err}
 		return
