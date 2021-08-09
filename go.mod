@@ -1,4 +1,4 @@
-module github.com/dfuse-io/search-client
+module github.com/streamingfast/search-client
 
 go 1.13
 
