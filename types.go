@@ -1,7 +1,7 @@
 package searchclient
 
 import (
-	pbsearch "github.com/streamingfast/pbgo/dfuse/search/v1"
+	pbsearch "github.com/streamingfast/pbgo/sf/search/v1"
 )
 
 type MatchOrError struct {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/streamingfast/dhammer"
 	"github.com/streamingfast/logging"
-	pbsearch "github.com/streamingfast/pbgo/dfuse/search/v1"
+	pbsearch "github.com/streamingfast/pbgo/sf/search/v1"
 	"google.golang.org/grpc"
 )
 
