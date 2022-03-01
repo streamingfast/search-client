@@ -54,7 +54,7 @@ func (c *CommonClient) StreamSearchToHammer(ctx context.Context, hammer *dhammer
 			return
 		}
 
-		if traceEnabled {
+		if tracer.Enabled() {
 			zlogger.Debug("sending search item to hammer")
 		}
 
@@ -111,7 +111,7 @@ func (c *CommonClient) HammerToConsumer(ctx context.Context, hammer *dhammer.Ham
 				zlogger.Debug("dhammer caller context done")
 				return
 			default:
-				if traceEnabled {
+				if tracer.Enabled() {
 					zlogger.Debug("sending hammer processed item to consumer")
 				}
 
